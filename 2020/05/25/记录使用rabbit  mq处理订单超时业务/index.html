@@ -6,17 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020 | miaomk的个人博客网站</title>
+  <title>记录使用rabbit  mq处理订单超时业务 | miaomk的个人博客网站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="miaomk的个人博客网站">
-<meta property="og:type" content="website">
-<meta property="og:title" content="miaomk的个人博客网站">
-<meta property="og:url" content="http://yoursite.com/archives/2020/index.html">
+  <meta name="description" content="前言：这几天在收尾项目，发现对订单超时的业务做的不够细致(下单15分钟后未付款则订单失效)，我们选择的是最为简单的定时任务来跑缓存中的订单，并筛选出超时的订单进行数据库更新操作，但是这样太消耗服务器的性能了，所以思考是否有别的解决方案  方案当然是有的，就我个人而言，就知道三种方案  就是我们现在所使用的方法，将订单存在redis缓存中，再模糊查询出来未付款的订单id列表，将id列表进行筛选，将">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记录使用rabbit  mq处理订单超时业务">
+<meta property="og:url" content="http://yoursite.com/2020/05/25/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8rabbit%20%20mq%E5%A4%84%E7%90%86%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E4%B8%9A%E5%8A%A1/index.html">
 <meta property="og:site_name" content="miaomk的个人博客网站">
-<meta property="og:description" content="miaomk的个人博客网站">
+<meta property="og:description" content="前言：这几天在收尾项目，发现对订单超时的业务做的不够细致(下单15分钟后未付款则订单失效)，我们选择的是最为简单的定时任务来跑缓存中的订单，并筛选出超时的订单进行数据库更新操作，但是这样太消耗服务器的性能了，所以思考是否有别的解决方案  方案当然是有的，就我个人而言，就知道三种方案  就是我们现在所使用的方法，将订单存在redis缓存中，再模糊查询出来未付款的订单id列表，将id列表进行筛选，将">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200401163357239.png">
+<meta property="article:published_time" content="2020-05-25T09:14:21.000Z">
+<meta property="article:modified_time" content="2020-06-26T23:40:54.930Z">
 <meta property="article:author" content="你不知道我名字">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200401163357239.png">
   
     <link rel="alternative" href="/atom.xml" title="miaomk的个人博客网站" type="application/atom+xml">
   
@@ -154,140 +158,120 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-记录使用rabbit  mq处理订单超时业务" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/27/%E8%AE%B0%E5%BD%95%E5%A4%9A%E6%80%81%E5%A6%82%E4%BD%95%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="archive-article-date">
-  	<time datetime="2020-06-26T23:26:32.557Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-27</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/27/%E8%AE%B0%E5%BD%95%E5%A4%9A%E6%80%81%E5%A6%82%E4%BD%95%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">记录多态如何序列化与反序列化</a>
+    <h1 class="article-title" itemprop="name">
+      记录使用rabbit  mq处理订单超时业务
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/01/%E8%AE%B0%E5%BD%95%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%B9%90%E8%A7%82%E9%94%81%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2020-06-01T03:18:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/01/%E8%AE%B0%E5%BD%95%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%B9%90%E8%A7%82%E9%94%81%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">记录在项目中乐观锁的简单使用</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Practical-issue//" class="article-tag-list-link color1">Practical-issue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/28/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8redis%E8%BF%87%E6%9C%9F%E5%9B%9E%E8%B0%83%E8%A7%A3%E5%86%B3%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2020-05-28T14:14:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/28/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8redis%E8%BF%87%E6%9C%9F%E5%9B%9E%E8%B0%83%E8%A7%A3%E5%86%B3%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/">记录使用redis过期回调解决订单超时问题</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Practical-issue//" class="article-tag-list-link color1">Practical-issue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/25/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8rabbit%20%20mq%E5%A4%84%E7%90%86%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E4%B8%9A%E5%8A%A1/" class="archive-article-date">
+        
+        <a href="/2020/05/25/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8rabbit%20%20mq%E5%A4%84%E7%90%86%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E4%B8%9A%E5%8A%A1/" class="archive-article-date">
   	<time datetime="2020-05-25T09:14:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/25/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8rabbit%20%20mq%E5%A4%84%E7%90%86%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E4%B8%9A%E5%8A%A1/">记录使用rabbit  mq处理订单超时业务</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
+          <!-- 需要添加的位置 -->
+          <!-- 开始添加字数统计-->
           
+            <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">1.6k字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">7分</span>
+      </span>
+    </span>
+</div>
           
+          <!-- 添加完成 -->
+
+        
+
+        <!-- 添加代码 -->
+        
+          <span class="archive-article-date">
+              阅读量 <span id="busuanzi_value_page_pv"></span>
+          </span>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id=""><a href="#" class="headerlink" title=""></a></h4><blockquote>
+<p>前言：这几天在收尾项目，发现对订单超时的业务做的不够细致(下单15分钟后未付款则订单失效)，我们选择的是最为简单的定时任务来跑缓存中的订单，并筛选出超时的订单进行数据库更新操作，但是这样太消耗服务器的性能了，所以思考是否有别的解决方案</p>
+</blockquote>
+<p>方案当然是有的，就我个人而言，就知道三种方案</p>
+<ol>
+<li>就是我们现在所使用的方法，将订单存在redis缓存中，再模糊查询出来未付款的订单id列表，将id列表进行筛选，将筛选好的id列表进行数据库批量更新，</li>
+<li>也是将订单id存在redis缓存中，不同的是，存入redis的同时设置过期时间，再开启redis过期回调功能，参考链接：<a href="https://www.cnblogs.com/NJM-F/p/10442198.html" target="_blank" rel="noopener">https://www.cnblogs.com/NJM-F/p/10442198.html</a>，实际操作文章：<a href="https://blog.csdn.net/weixin_43864927/article/details/105261967" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43864927/article/details/105261967*</a> <strong>但是问题是：</strong><img src="https://img-blog.csdnimg.cn/20200401163357239.png" alt="在这里插入图片描述"><ol start="3">
+<li>使用mq来消费，mq设置消息过期时间，消息过期后，将订单消息发送到队列中，程序监听该队列，进行数据库操作</li>
+</ol>
+<ul>
+<li>综上所述，第三种应该是最适合我们的方法了，接下来就是具体操作了</li>
+</ul>
+</li>
+</ol>
+<a id="more"></a>
+
+<hr>
+<h5 id="1-加入依赖"><a href="#1-加入依赖" class="headerlink" title="1.加入依赖"></a>1.加入依赖</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!--消息队列相关依赖--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-amqp&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;!--lombok依赖--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">    &lt;optional&gt;true&lt;/optional&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-修改application-yml配置文件"><a href="#2-修改application-yml配置文件" class="headerlink" title="2.修改application.yml配置文件"></a>2.修改application.yml配置文件</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq:</span><br><span class="line">    host: localhost <span class="comment"># rabbitmq的连接地址</span></span><br><span class="line">    port: 5672 <span class="comment"># rabbitmq的连接端口号</span></span><br><span class="line">    virtual-host: /demo <span class="comment"># rabbitmq的虚拟host</span></span><br><span class="line">    username: root <span class="comment"># rabbitmq的用户名</span></span><br><span class="line">    password: root <span class="comment"># rabbitmq的密码</span></span><br><span class="line">    publisher-confirms: <span class="literal">true</span> <span class="comment">#如果对异步消息需要回调必须设置为true</span></span><br></pre></td></tr></table></figure>
+<h5 id="3-添加消息队列的枚举配置类QueueEnum"><a href="#3-添加消息队列的枚举配置类QueueEnum" class="headerlink" title="3.添加消息队列的枚举配置类QueueEnum"></a>3.添加消息队列的枚举配置类QueueEnum</h5><pre><code>- 用于延迟消息队列及处理取消订单消息队列的常量定义，包括交换机名称、队列名称、路由键名称。 </code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.xxx.xxx.xxx.enume;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.Getter;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 消息队列枚举配置</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> demo</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> QueueEnum &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 消息通知队列</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    QUEUE_ORDER_CANCEL(<span class="string">"demo.order.direct"</span>, <span class="string">"demo.order.cancel"</span>, <span class="string">"demo.order.cancel"</span>),</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 消息通知ttl队列</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    QUEUE_TTL_ORDER_CANCEL(<span class="string">"demo.order.direct.ttl"</span>, <span class="string">"demo.order.cancel.ttl"</span>, <span class="string">"demo.order.cancel.ttl"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 交换名称</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String exchange;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 队列名称</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 路由键</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String routeKey;</span><br><span class="line"></span><br><span class="line">    QueueEnum(String exchange, String name, String routeKey) &#123;</span><br><span class="line">        <span class="keyword">this</span>.exchange = exchange;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.routeKey = routeKey;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="4-增加RabbitMqConfig配置类"><a href="#4-增加RabbitMqConfig配置类" class="headerlink" title="4.增加RabbitMqConfig配置类"></a>4.增加RabbitMqConfig配置类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.xx.xx.xx.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.xx.xx.xx.xx.QueueEnum;</span><br><span class="line"><span class="keyword">import</span> org.springframework.amqp.core.*;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 消息队列配置</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> demo</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RabbitMqConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 订单消息实际消费队列所绑定的交换机</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">DirectExchange <span class="title">orderDirect</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (DirectExchange) ExchangeBuilder</span><br><span class="line">                .directExchange(QueueEnum.QUEUE_ORDER_CANCEL.getExchange())</span><br><span class="line">                .durable(<span class="keyword">true</span>)</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 订单延迟队列队列所绑定的交换机</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">DirectExchange <span class="title">orderTtlDirect</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (DirectExchange) ExchangeBuilder</span><br><span class="line">                .directExchange(QueueEnum.QUEUE_TTL_ORDER_CANCEL.getExchange())</span><br><span class="line">                .durable(<span class="keyword">true</span>)</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 订单实际消费队列</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Queue <span class="title">orderQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Queue(QueueEnum.QUEUE_ORDER_CANCEL.getName());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 订单延迟队列（死信队列）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Queue <span class="title">orderTtlQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> QueueBuilder</span><br><span class="line">                .durable(QueueEnum.QUEUE_TTL_ORDER_CANCEL.getName())</span><br><span class="line">                .withArgument(<span class="string">"x-dead-letter-exchange"</span>, QueueEnum.QUEUE_ORDER_CANCEL.getExchange())<span class="comment">//到期后转发的交换机</span></span><br><span class="line">                .withArgument(<span class="string">"x-dead-letter-routing-key"</span>, QueueEnum.QUEUE_ORDER_CANCEL.getRouteKey())<span class="comment">//到期后转发的路由键</span></span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将订单队列绑定到交换机</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">Binding <span class="title">orderBinding</span><span class="params">(DirectExchange orderDirect,Queue orderQueue)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> BindingBuilder</span><br><span class="line">                .bind(orderQueue)</span><br><span class="line">                .to(orderDirect)</span><br><span class="line">                .with(QueueEnum.QUEUE_ORDER_CANCEL.getRouteKey());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将订单延迟队列绑定到交换机</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">Binding <span class="title">orderTtlBinding</span><span class="params">(DirectExchange orderTtlDirect,Queue orderTtlQueue)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> BindingBuilder</span><br><span class="line">                .bind(orderTtlQueue)</span><br><span class="line">                .to(orderTtlDirect)</span><br><span class="line">                .with(QueueEnum.QUEUE_TTL_ORDER_CANCEL.getRouteKey());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="交换机及队列说明"><a href="#交换机及队列说明" class="headerlink" title="交换机及队列说明"></a>交换机及队列说明</h6><ul>
+<li>demo.order.direct（取消订单消息队列所绑定的交换机）:绑定的队列为demo.order.cancel，一旦有消息以demo.order.cancel为路由键发过来，会发送到此队列。</li>
+<li>demo.order.direct.ttl（订单延迟消息队列所绑定的交换机）:绑定的队列为demo.order.cancel.ttl，一旦有消息以demo.order.cancel.ttl为路由键发送过来，会转发到此队列，并在此队列保存一定时间，等到超时后会自动将消息发送到demo.order.cancel（取消订单消息消费队列）。</li>
+</ul>
+<h5 id="5-添加延迟消息的发送者CancelOrderSender（用于向订单延迟消息队列（demo-order-cancel-ttl）里发送消息）"><a href="#5-添加延迟消息的发送者CancelOrderSender（用于向订单延迟消息队列（demo-order-cancel-ttl）里发送消息）" class="headerlink" title="5.添加延迟消息的发送者CancelOrderSender（用于向订单延迟消息队列（demo.order.cancel.ttl）里发送消息）"></a>5.添加延迟消息的发送者CancelOrderSender（用于向订单延迟消息队列（demo.order.cancel.ttl）里发送消息）</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.xx.xx.xx.component;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.xx.xx.xx.enume.QueueEnum;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.amqp.AmqpException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.amqp.core.AmqpTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.amqp.core.Message;</span><br><span class="line"><span class="keyword">import</span> org.springframework.amqp.core.MessagePostProcessor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.annotation.Resource;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 取消订单消息的发出者</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> demo</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CancelOrderSender</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> AmqpTemplate amqpTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">(String orderId,<span class="keyword">final</span> <span class="keyword">long</span> delayTimes)</span></span>&#123;</span><br><span class="line">        <span class="comment">//给延迟队列发送消息</span></span><br><span class="line">        amqpTemplate.convertAndSend(QueueEnum.QUEUE_TTL_ORDER_CANCEL.getExchange(),</span><br><span class="line">                QueueEnum.QUEUE_TTL_ORDER_CANCEL.getRouteKey(), orderId, <span class="keyword">new</span> MessagePostProcessor() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Message <span class="title">postProcessMessage</span><span class="params">(Message message)</span> <span class="keyword">throws</span> AmqpException </span>&#123;</span><br><span class="line">                <span class="comment">//给消息设置延迟毫秒值</span></span><br><span class="line">                message.getMessageProperties().setExpiration(String.valueOf(delayTimes));</span><br><span class="line">                <span class="keyword">return</span> message;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        log.info(<span class="string">"send delay message orderId:&#123;&#125;"</span>,orderId);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="6-添加取消订单消息的接收者CancelOrderReceiver（用于从取消订单的消息队列（demo-order-cancel）里接收消息）"><a href="#6-添加取消订单消息的接收者CancelOrderReceiver（用于从取消订单的消息队列（demo-order-cancel）里接收消息）" class="headerlink" title="6.添加取消订单消息的接收者CancelOrderReceiver（用于从取消订单的消息队列（demo.order.cancel）里接收消息）"></a>6.添加取消订单消息的接收者CancelOrderReceiver（用于从取消订单的消息队列（demo.order.cancel）里接收消息）</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xx.xx.xx.component;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.xx.xx.main.service.DemoService;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.amqp.rabbit.annotation.RabbitHandler;</span><br><span class="line"><span class="keyword">import</span> org.springframework.amqp.rabbit.annotation.RabbitListener;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.annotation.Resource;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 取消订单消息的处理者</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> demo</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@RabbitListener</span>(queues = <span class="string">"demo.order.cancel"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CancelOrderReceiver</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> DemoService demoService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RabbitHandler</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(String orderId)</span></span>&#123;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line"></span><br><span class="line">            demoService.cancelOverTimeOrder(orderId);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (BusinessException e) &#123;</span><br><span class="line"></span><br><span class="line">            log.info(<span class="string">"receive delay message orderId:&#123;&#125;,Exception:&#123;&#125;"</span>, orderId, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="7-在具体业务逻辑中发送消息"><a href="#7-在具体业务逻辑中发送消息" class="headerlink" title="7.在具体业务逻辑中发送消息"></a>7.在具体业务逻辑中发送消息</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.xx.xx.main.DemoService;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> abm</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoServiceImpl</span> <span class="keyword">implements</span> <span class="title">DemoService</span></span>&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CommonResult <span class="title">generateOrder</span><span class="params">(OrderParam orderParam)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//todo 执行一系类下单操作</span></span><br><span class="line">        LOGGER.info(<span class="string">"process generateOrder"</span>);</span><br><span class="line">        <span class="comment">//下单完成后开启一个延迟消息，用于当用户没有付款时取消订单（orderId应该在下单后生成）</span></span><br><span class="line">        sendDelayMessageCancelOrder(orderId);</span><br><span class="line">        <span class="keyword">return</span> CommonResult.success(<span class="keyword">null</span>, <span class="string">"下单成功"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cancelOverTimeOrder</span><span class="params">(String orderId)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//todo 执行一系类取消订单操作</span></span><br><span class="line">        LOGGER.info(<span class="string">"process cancelOrder orderId:&#123;&#125;"</span>,orderId);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sendDelayMessageCancelOrder</span><span class="params">(String orderId)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//获取订单超时时间，假设为60分钟</span></span><br><span class="line">        <span class="keyword">long</span> delayTimes = <span class="number">30</span> * <span class="number">1000</span>;</span><br><span class="line">        <span class="comment">//发送延迟消息</span></span><br><span class="line">        cancelOrderSender.sendMessage(orderId, delayTimes);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="就这样，在超过15分钟之后，数据库的订单将自动修改为取消状态。但是还有一个问题在-mq-出问题的时候怎么处理超时订单呢？是搭一个mq集群还是写一个定时任务频率不需要太快呢-这个问题等待我下次来回答吧"><a href="#就这样，在超过15分钟之后，数据库的订单将自动修改为取消状态。但是还有一个问题在-mq-出问题的时候怎么处理超时订单呢？是搭一个mq集群还是写一个定时任务频率不需要太快呢-这个问题等待我下次来回答吧" class="headerlink" title="就这样，在超过15分钟之后，数据库的订单将自动修改为取消状态。但是还有一个问题在 mq 出问题的时候怎么处理超时订单呢？是搭一个mq集群还是写一个定时任务频率不需要太快呢?这个问题等待我下次来回答吧"></a>就这样，在超过15分钟之后，数据库的订单将自动修改为取消状态。但是还有一个问题在 mq 出问题的时候怎么处理超时订单呢？是搭一个mq集群还是写一个定时任务频率不需要太快呢?这个问题等待我下次来回答吧</h4><h5 id="文章参考"><a href="#文章参考" class="headerlink" title="文章参考"></a><a href="http://www.macrozheng.com/#/architect/mall_arch_09?id=%E6%B7%BB%E5%8A%A0%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%91%E9%80%81%E8%80%85cancelordersender" target="_blank" rel="noopener">文章参考</a></h5>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -300,93 +284,147 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/05/25/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8rabbit%20%20mq%E5%A4%84%E7%90%86%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E4%B8%9A%E5%8A%A1/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/05/SpringBoot%E6%95%B4%E5%90%88SpringEmail%20%E6%89%B9%E9%87%8F%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2020-05-04T23:20:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-05</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2020/05/28/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8redis%E8%BF%87%E6%9C%9F%E5%9B%9E%E8%B0%83%E8%A7%A3%E5%86%B3%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          记录使用redis过期回调解决订单超时问题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/05/05/SpringBoot%E6%95%B4%E5%90%88SpringEmail%20%E6%89%B9%E9%87%8F%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SpringBoot整合SpringEmail 批量发送邮件</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/05/SpringBoot%E6%95%B4%E5%90%88SpringEmail%20%E6%89%B9%E9%87%8F%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/">SpringBoot整合SpringEmail 批量发送邮件</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Practical-issue//" class="article-tag-list-link color1">Practical-issue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-加入依赖"><span class="toc-number">1.1.</span> <span class="toc-text">1.加入依赖</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-修改application-yml配置文件"><span class="toc-number">1.2.</span> <span class="toc-text">2.修改application.yml配置文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-添加消息队列的枚举配置类QueueEnum"><span class="toc-number">1.3.</span> <span class="toc-text">3.添加消息队列的枚举配置类QueueEnum</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-增加RabbitMqConfig配置类"><span class="toc-number">1.4.</span> <span class="toc-text">4.增加RabbitMqConfig配置类</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#交换机及队列说明"><span class="toc-number">1.4.1.</span> <span class="toc-text">交换机及队列说明</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-添加延迟消息的发送者CancelOrderSender（用于向订单延迟消息队列（demo-order-cancel-ttl）里发送消息）"><span class="toc-number">1.5.</span> <span class="toc-text">5.添加延迟消息的发送者CancelOrderSender（用于向订单延迟消息队列（demo.order.cancel.ttl）里发送消息）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-添加取消订单消息的接收者CancelOrderReceiver（用于从取消订单的消息队列（demo-order-cancel）里接收消息）"><span class="toc-number">1.6.</span> <span class="toc-text">6.添加取消订单消息的接收者CancelOrderReceiver（用于从取消订单的消息队列（demo.order.cancel）里接收消息）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#7-在具体业务逻辑中发送消息"><span class="toc-number">1.7.</span> <span class="toc-text">7.在具体业务逻辑中发送消息</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#就这样，在超过15分钟之后，数据库的订单将自动修改为取消状态。但是还有一个问题在-mq-出问题的时候怎么处理超时订单呢？是搭一个mq集群还是写一个定时任务频率不需要太快呢-这个问题等待我下次来回答吧"><span class="toc-number">2.</span> <span class="toc-text">就这样，在超过15分钟之后，数据库的订单将自动修改为取消状态。但是还有一个问题在 mq 出问题的时候怎么处理超时订单呢？是搭一个mq集群还是写一个定时任务频率不需要太快呢?这个问题等待我下次来回答吧</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#文章参考"><span class="toc-number">2.1.</span> <span class="toc-text">文章参考</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/05/MybatisPlus%E6%89%B9%E9%87%8F%E6%9B%B4%E6%96%B0%E5%BC%82%E5%B8%B8/" class="archive-article-date">
-  	<time datetime="2020-05-04T23:20:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/05/MybatisPlus%E6%89%B9%E9%87%8F%E6%9B%B4%E6%96%B0%E5%BC%82%E5%B8%B8/">MybatisPlus批量更新异常</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Practical-issue//" class="article-tag-list-link color1">Practical-issue</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
+
   
 
-    
+  
+
+  
+
+  
+
+  
+  
+    <div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+var gitalk = new Gitalk({
+  clientID: '4a23124d2e529d373f42',
+  clientSecret: '8aea68dd234bbc6cec94312ff0a082169e969bb8',
+  repo: 'miaomk.github.io',
+  owner: 'miaomk',
+  admin: ['miaomk'],
+  id: md5(window.location.pathname),
+  distractionFreeMode: true
+})
+
+gitalk.render('gitalk-container')
+</script>
+  
+
 
 
           </div>
@@ -421,8 +459,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,

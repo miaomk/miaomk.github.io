@@ -6,17 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020 | miaomk的个人博客网站</title>
+  <title>SpringBoot整合SpringEmail 批量发送邮件 | miaomk的个人博客网站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="miaomk的个人博客网站">
-<meta property="og:type" content="website">
-<meta property="og:title" content="miaomk的个人博客网站">
-<meta property="og:url" content="http://yoursite.com/archives/2020/index.html">
+  <meta name="description" content="前言：公司目前有个业务就是向订阅了客户发送邮件，所以我把这块的内容记录下来  1.引入依赖12345&lt;!--  email--&gt;&lt;dependency&gt;    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;    &lt;artifactId&gt;spring-boot-starter-mail&lt;&#x2F;a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot整合SpringEmail 批量发送邮件">
+<meta property="og:url" content="http://yoursite.com/2020/05/05/SpringBoot%E6%95%B4%E5%90%88SpringEmail%20%E6%89%B9%E9%87%8F%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/index.html">
 <meta property="og:site_name" content="miaomk的个人博客网站">
-<meta property="og:description" content="miaomk的个人博客网站">
+<meta property="og:description" content="前言：公司目前有个业务就是向订阅了客户发送邮件，所以我把这块的内容记录下来  1.引入依赖12345&lt;!--  email--&gt;&lt;dependency&gt;    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;    &lt;artifactId&gt;spring-boot-starter-mail&lt;&#x2F;a">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200508190809506.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzg2NDkyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200508191550553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzg2NDkyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200508194014843.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzg2NDkyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200508194050575.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzg2NDkyNw==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-05-04T23:20:44.000Z">
+<meta property="article:modified_time" content="2020-06-26T23:34:23.919Z">
 <meta property="article:author" content="你不知道我名字">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200508190809506.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzg2NDkyNw==,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="miaomk的个人博客网站" type="application/atom+xml">
   
@@ -154,178 +161,104 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-SpringBoot整合SpringEmail 批量发送邮件" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/27/%E8%AE%B0%E5%BD%95%E5%A4%9A%E6%80%81%E5%A6%82%E4%BD%95%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="archive-article-date">
-  	<time datetime="2020-06-26T23:26:32.557Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-27</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/27/%E8%AE%B0%E5%BD%95%E5%A4%9A%E6%80%81%E5%A6%82%E4%BD%95%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">记录多态如何序列化与反序列化</a>
+    <h1 class="article-title" itemprop="name">
+      SpringBoot整合SpringEmail 批量发送邮件
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/01/%E8%AE%B0%E5%BD%95%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%B9%90%E8%A7%82%E9%94%81%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2020-06-01T03:18:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/01/%E8%AE%B0%E5%BD%95%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%B9%90%E8%A7%82%E9%94%81%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">记录在项目中乐观锁的简单使用</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Practical-issue//" class="article-tag-list-link color1">Practical-issue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/28/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8redis%E8%BF%87%E6%9C%9F%E5%9B%9E%E8%B0%83%E8%A7%A3%E5%86%B3%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2020-05-28T14:14:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/28/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8redis%E8%BF%87%E6%9C%9F%E5%9B%9E%E8%B0%83%E8%A7%A3%E5%86%B3%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/">记录使用redis过期回调解决订单超时问题</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Practical-issue//" class="article-tag-list-link color1">Practical-issue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/25/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8rabbit%20%20mq%E5%A4%84%E7%90%86%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E4%B8%9A%E5%8A%A1/" class="archive-article-date">
-  	<time datetime="2020-05-25T09:14:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/25/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8rabbit%20%20mq%E5%A4%84%E7%90%86%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E4%B8%9A%E5%8A%A1/">记录使用rabbit  mq处理订单超时业务</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Practical-issue//" class="article-tag-list-link color1">Practical-issue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/05/SpringBoot%E6%95%B4%E5%90%88SpringEmail%20%E6%89%B9%E9%87%8F%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" class="archive-article-date">
+        
+        <a href="/2020/05/05/SpringBoot%E6%95%B4%E5%90%88SpringEmail%20%E6%89%B9%E9%87%8F%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" class="archive-article-date">
   	<time datetime="2020-05-04T23:20:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-05</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/05/SpringBoot%E6%95%B4%E5%90%88SpringEmail%20%E6%89%B9%E9%87%8F%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/">SpringBoot整合SpringEmail 批量发送邮件</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
+          <!-- 需要添加的位置 -->
+          <!-- 开始添加字数统计-->
           
+            <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">342字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">1分</span>
+      </span>
+    </span>
+</div>
           
+          <!-- 添加完成 -->
+
+        
+
+        <!-- 添加代码 -->
+        
+          <span class="archive-article-date">
+              阅读量 <span id="busuanzi_value_page_pv"></span>
+          </span>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>前言：公司目前有个业务就是向订阅了客户发送邮件，所以我把这块的内容记录下来</p>
+</blockquote>
+<h4 id="1-引入依赖"><a href="#1-引入依赖" class="headerlink" title="1.引入依赖"></a>1.引入依赖</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--  email--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-mail&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="2-开始邮箱设置"><a href="#2-开始邮箱设置" class="headerlink" title="2. 开始邮箱设置"></a>2. 开始邮箱设置</h4><p><img src="https://img-blog.csdnimg.cn/20200508190809506.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzg2NDkyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<h4 id="3-在application中写入配置信息"><a href="#3-在application中写入配置信息" class="headerlink" title="3. 在application中写入配置信息"></a>3. 在application中写入配置信息</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  mail:</span><br><span class="line">    host: smtp.163.com #SMTP服务器地址 </span><br><span class="line">    username: ******* #登陆账号</span><br><span class="line">    password: ******* #登陆密码（或授权码）</span><br><span class="line">    default-encoding: utf-8</span><br><span class="line">    properties:</span><br><span class="line">      from: ******* #邮件发信人（即真实邮箱）</span><br><span class="line">      mail:</span><br><span class="line">        smtp:</span><br><span class="line">          auth: true</span><br><span class="line">          starttls:</span><br><span class="line">            enable: true</span><br><span class="line">            required: true</span><br></pre></td></tr></table></figure>
+
+<h4 id="smtp-exmail-qq-com-是QQ邮箱的，用网易邮箱的话就写-smtp-163-com"><a href="#smtp-exmail-qq-com-是QQ邮箱的，用网易邮箱的话就写-smtp-163-com" class="headerlink" title="smtp.exmail.qq.com 是QQ邮箱的，用网易邮箱的话就写 smtp.163.com"></a><code>smtp.exmail.qq.com</code> 是QQ邮箱的，用网易邮箱的话就写 <code>smtp.163.com</code></h4><h4 id="4-实现类"><a href="#4-实现类" class="headerlink" title="4.实现类"></a>4.实现类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MailServiceImpl</span> <span class="keyword">extends</span> <span class="title">MailService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.mail.properties.from&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String mallFrom;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> JavaMailSender javaMailSender;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">emailMessage</span><span class="params">(String title, String content)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//查询邮箱列表，具体代码我就不写了</span></span><br><span class="line">        List&lt;String&gt; emailList = ;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//发送到邮箱</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            SimpleMailMessage simpleMailMessage = <span class="keyword">new</span> SimpleMailMessage();</span><br><span class="line">            <span class="comment">//设置发件人Email</span></span><br><span class="line">            simpleMailMessage.setFrom(mallFrom);</span><br><span class="line">            <span class="comment">//设置邮件主题</span></span><br><span class="line">            simpleMailMessage.setSubject(title);</span><br><span class="line">            <span class="comment">//设置邮件主题内容</span></span><br><span class="line">            simpleMailMessage.setText(content);</span><br><span class="line">            <span class="comment">//批量发送</span></span><br><span class="line">            String[] emailArray = emailList.stream()..toArray(String[]::<span class="keyword">new</span>);</span><br><span class="line">            </span><br><span class="line">           javaMailSender.send(simpleMailMessage);</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.error(<span class="string">"SendEmailMessage error: "</span>, e);</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> MallBusinessException(<span class="string">"发送信息失败: "</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"ok"</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20200508191550553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzg2NDkyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="发送成功！！！"><a href="#发送成功！！！" class="headerlink" title="发送成功！！！"></a>发送成功！！！</h4><h4 id="上面批量发送这么写的原因是因为，SimpleMailMessage类中设置发送邮箱的API有两个，而其中的this-to为一个数组对象，即setTo数组就可批量发送"><a href="#上面批量发送这么写的原因是因为，SimpleMailMessage类中设置发送邮箱的API有两个，而其中的this-to为一个数组对象，即setTo数组就可批量发送" class="headerlink" title="上面批量发送这么写的原因是因为，SimpleMailMessage类中设置发送邮箱的API有两个，而其中的this.to为一个数组对象，即setTo数组就可批量发送"></a>上面批量发送这么写的原因是因为，SimpleMailMessage类中设置发送邮箱的API有两个，而其中的<code>this.to</code>为一个数组对象，<code>即setTo数组就可批量发送</code></h4><p><img src="https://img-blog.csdnimg.cn/20200508194014843.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzg2NDkyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20200508194050575.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzg2NDkyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -338,55 +271,147 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/05/05/SpringBoot%E6%95%B4%E5%90%88SpringEmail%20%E6%89%B9%E9%87%8F%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/05/MybatisPlus%E6%89%B9%E9%87%8F%E6%9B%B4%E6%96%B0%E5%BC%82%E5%B8%B8/" class="archive-article-date">
-  	<time datetime="2020-05-04T23:20:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-05</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2020/05/25/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8rabbit%20%20mq%E5%A4%84%E7%90%86%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E4%B8%9A%E5%8A%A1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          记录使用rabbit  mq处理订单超时业务
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/05/05/MybatisPlus%E6%89%B9%E9%87%8F%E6%9B%B4%E6%96%B0%E5%BC%82%E5%B8%B8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MybatisPlus批量更新异常</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/05/MybatisPlus%E6%89%B9%E9%87%8F%E6%9B%B4%E6%96%B0%E5%BC%82%E5%B8%B8/">MybatisPlus批量更新异常</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Practical-issue//" class="article-tag-list-link color1">Practical-issue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-引入依赖"><span class="toc-number">1.</span> <span class="toc-text">1.引入依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-开始邮箱设置"><span class="toc-number">2.</span> <span class="toc-text">2. 开始邮箱设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-在application中写入配置信息"><span class="toc-number">3.</span> <span class="toc-text">3. 在application中写入配置信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#smtp-exmail-qq-com-是QQ邮箱的，用网易邮箱的话就写-smtp-163-com"><span class="toc-number">4.</span> <span class="toc-text">smtp.exmail.qq.com 是QQ邮箱的，用网易邮箱的话就写 smtp.163.com</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-实现类"><span class="toc-number">5.</span> <span class="toc-text">4.实现类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#发送成功！！！"><span class="toc-number">6.</span> <span class="toc-text">发送成功！！！</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#上面批量发送这么写的原因是因为，SimpleMailMessage类中设置发送邮箱的API有两个，而其中的this-to为一个数组对象，即setTo数组就可批量发送"><span class="toc-number">7.</span> <span class="toc-text">上面批量发送这么写的原因是因为，SimpleMailMessage类中设置发送邮箱的API有两个，而其中的this.to为一个数组对象，即setTo数组就可批量发送</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
+        
+    </div>
+</aside>
+
+
+
   
 
-    
+  
+
+  
+
+  
+
+  
+  
+    <div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+var gitalk = new Gitalk({
+  clientID: '4a23124d2e529d373f42',
+  clientSecret: '8aea68dd234bbc6cec94312ff0a082169e969bb8',
+  repo: 'miaomk.github.io',
+  owner: 'miaomk',
+  admin: ['miaomk'],
+  id: md5(window.location.pathname),
+  distractionFreeMode: true
+})
+
+gitalk.render('gitalk-container')
+</script>
+  
+
 
 
           </div>
@@ -421,8 +446,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
