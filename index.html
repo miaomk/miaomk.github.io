@@ -608,6 +608,113 @@
 
 
   
+    <article id="post-MybatisPlus批量更新异常" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/05/MybatisPlus%E6%89%B9%E9%87%8F%E6%9B%B4%E6%96%B0%E5%BC%82%E5%B8%B8/">MybatisPlus批量更新异常</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/05/MybatisPlus%E6%89%B9%E9%87%8F%E6%9B%B4%E6%96%B0%E5%BC%82%E5%B8%B8/" class="archive-article-date">
+  	<time datetime="2020-05-04T23:20:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-05</time>
+</a>
+
+          <!-- 需要添加的位置 -->
+          <!-- 开始添加字数统计-->
+          
+            <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">288字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">1分</span>
+      </span>
+    </span>
+</div>
+          
+          <!-- 添加完成 -->
+
+        
+
+        <!-- 添加代码 -->
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>使用MybatisPlus批量更新数据库时抛异常：java.sql.SQLException: sql injection violation, multi-statement</p>
+</blockquote>
+<h4 id="找到报错的sql："><a href="#找到报错的sql：" class="headerlink" title="找到报错的sql："></a>找到报错的sql：</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=<span class="string">"batchUpdateCategory"</span>&gt;</span><br><span class="line">    &lt;foreach collection=<span class="string">"list"</span> item=<span class="string">"bean"</span> index=<span class="string">"index"</span> open=<span class="string">""</span> close=<span class="string">""</span> separator=<span class="string">";"</span>&gt;</span><br><span class="line">        update cms_topic</span><br><span class="line">        set category_id = #&#123;bean.categoryId&#125;</span><br><span class="line">        where id = #&#123;bean.id&#125;</span><br><span class="line">    &lt;/foreach&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="原因：多条语句执行被druid拦截了"><a href="#原因：多条语句执行被druid拦截了" class="headerlink" title="原因：多条语句执行被druid拦截了"></a>原因：多条语句执行被druid拦截了</h3><p><img src="https://img-blog.csdnimg.cn/20200515135106899.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzg2NDkyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Practical-issue//" class="article-tag-list-link color1">Practical-issue</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/05/MybatisPlus%E6%89%B9%E9%87%8F%E6%9B%B4%E6%96%B0%E5%BC%82%E5%B8%B8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-SpringBoot整合SpringEmail 批量发送邮件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -687,113 +794,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/05/05/SpringBoot%E6%95%B4%E5%90%88SpringEmail%20%E6%89%B9%E9%87%8F%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MybatisPlus批量更新异常" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/05/MybatisPlus%E6%89%B9%E9%87%8F%E6%9B%B4%E6%96%B0%E5%BC%82%E5%B8%B8/">MybatisPlus批量更新异常</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/05/MybatisPlus%E6%89%B9%E9%87%8F%E6%9B%B4%E6%96%B0%E5%BC%82%E5%B8%B8/" class="archive-article-date">
-  	<time datetime="2020-05-04T23:20:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-05</time>
-</a>
-
-          <!-- 需要添加的位置 -->
-          <!-- 开始添加字数统计-->
-          
-            <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">288字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-          
-          <!-- 添加完成 -->
-
-        
-
-        <!-- 添加代码 -->
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>使用MybatisPlus批量更新数据库时抛异常：java.sql.SQLException: sql injection violation, multi-statement</p>
-</blockquote>
-<h4 id="找到报错的sql："><a href="#找到报错的sql：" class="headerlink" title="找到报错的sql："></a>找到报错的sql：</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=<span class="string">"batchUpdateCategory"</span>&gt;</span><br><span class="line">    &lt;foreach collection=<span class="string">"list"</span> item=<span class="string">"bean"</span> index=<span class="string">"index"</span> open=<span class="string">""</span> close=<span class="string">""</span> separator=<span class="string">";"</span>&gt;</span><br><span class="line">        update cms_topic</span><br><span class="line">        set category_id = #&#123;bean.categoryId&#125;</span><br><span class="line">        where id = #&#123;bean.id&#125;</span><br><span class="line">    &lt;/foreach&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="原因：多条语句执行被druid拦截了"><a href="#原因：多条语句执行被druid拦截了" class="headerlink" title="原因：多条语句执行被druid拦截了"></a>原因：多条语句执行被druid拦截了</h3><p><img src="https://img-blog.csdnimg.cn/20200515135106899.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzg2NDkyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Practical-issue//" class="article-tag-list-link color1">Practical-issue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/05/MybatisPlus%E6%89%B9%E9%87%8F%E6%9B%B4%E6%96%B0%E5%BC%82%E5%B8%B8/">展开全文 >></a>
         </p>
       
 
