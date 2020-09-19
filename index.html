@@ -156,129 +156,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Java值传递证明" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/19/Java%E5%80%BC%E4%BC%A0%E9%80%92%E8%AF%81%E6%98%8E/">Java值传递证明</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/19/Java%E5%80%BC%E4%BC%A0%E9%80%92%E8%AF%81%E6%98%8E/" class="archive-article-date">
-  	<time datetime="2020-09-19T03:43:31.358Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-19</time>
-</a>
-
-          <!-- 需要添加的位置 -->
-          <!-- 开始添加字数统计-->
-          
-            <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">1.2k字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">4分</span>
-      </span>
-    </span>
-</div>
-          
-          <!-- 添加完成 -->
-
-        
-
-        <!-- 添加代码 -->
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>从我实习面试开始就有在面试中遇到过这个问题：Java是值传递还是引用传递？</p>
-<p>当时的我只会背背面试题，但是网上的答案有些还是错的，导致我决心写这一篇文章。</p>
-<p>虽然网上已经有很多文章珠玉在前，但是我还是想写一篇我自己的文章，如果写的不好，请见谅</p>
-</blockquote>
-<h4 id="文章开始之前我们还是来解答Java是值传递还是引用传递？这个问题吧！答案自然是：Java是值传递"><a href="#文章开始之前我们还是来解答Java是值传递还是引用传递？这个问题吧！答案自然是：Java是值传递" class="headerlink" title="文章开始之前我们还是来解答Java是值传递还是引用传递？这个问题吧！答案自然是：Java是值传递"></a>文章开始之前我们还是来解答<code>Java是值传递还是引用传递？</code>这个问题吧！答案自然是：Java是值传递</h4><h5 id="给定结论后我们再来解释一下什么叫-值传递-amp-引用传递"><a href="#给定结论后我们再来解释一下什么叫-值传递-amp-引用传递" class="headerlink" title="给定结论后我们再来解释一下什么叫 值传递&amp;引用传递"></a>给定结论后我们再来解释一下什么叫 值传递&amp;引用传递</h5><ul>
-<li><p>值传递：<strong>值传递</strong>是指在调用函数时将<strong>实际参数复制一份传递到函数中</strong>，这样在函数中如果对参数进行修改，将不会影响到实际参数。</p>
-</li>
-<li><p>引用传递：<strong>引用传递</strong>是指在调用函数时将<strong>实际参数的地址传递到函数中</strong>，那么在函数中对参数所进行的修改，将影响到实际参数。</p>
-</li>
-</ul>
-<p><strong>图片来自百度百科</strong></p>
-<p><img src="C:%5CUsers%5C15888%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200915110333627.png" alt="image-20200915110333627"></p>
-<p><img src="C:%5CUsers%5C15888%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200915110309528.png" alt="image-20200915110309528"></p>
-<h4 id="上代码证明："><a href="#上代码证明：" class="headerlink" title="上代码证明："></a>上代码证明：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 证明java值传递demo</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> miao</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PassValueDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">        String str = <span class="string">"1"</span>;</span><br><span class="line">        User user = <span class="keyword">new</span> User(<span class="string">"阿花"</span>, <span class="number">6</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"调用方法前a为："</span> + a);</span><br><span class="line">        System.out.println(<span class="string">"调用方法前str为："</span> + str);</span><br><span class="line">        System.out.println(<span class="string">"调用方法前user为："</span> + user);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"------------------------------------------"</span>);</span><br><span class="line">        convert(a, str, user);</span><br><span class="line">        System.out.println(<span class="string">"------------------------------------------"</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"调用方法后a为："</span> + a);</span><br><span class="line">        System.out.println(<span class="string">"调用方法后str为："</span> + str);</span><br><span class="line">        System.out.println(<span class="string">"调用方法后user为："</span> + user);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">convert</span><span class="params">(<span class="keyword">int</span> a, String str, User user)</span> </span>&#123;</span><br><span class="line">        a = <span class="number">2</span>;</span><br><span class="line">        str = <span class="string">"2"</span>;</span><br><span class="line">        user.setAge(<span class="number">9</span>);</span><br><span class="line">        user.setUsername(<span class="string">"大壮"</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"调用方法中a为："</span> + a);</span><br><span class="line">        System.out.println(<span class="string">"调用方法中str为："</span> + str);</span><br><span class="line">        System.out.println(<span class="string">"调用方法中user为："</span> + user);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> miao</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String username;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(String username, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.username = username;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUsername</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> username;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUsername</span><span class="params">(String username)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.username = username;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"User&#123;"</span> +</span><br><span class="line">                <span class="string">"username='"</span> + username + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", age="</span> + age +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="程序的执行结果："><a href="#程序的执行结果：" class="headerlink" title="程序的执行结果："></a>程序的执行结果：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">调用方法前a为：1</span><br><span class="line">调用方法前str为：1</span><br><span class="line">调用方法前user为：User&#123;username=<span class="string">'阿花'</span>, age=6&#125;</span><br><span class="line">------------------------------------------</span><br><span class="line">调用方法中a为：2</span><br><span class="line">调用方法中str为：2</span><br><span class="line">调用方法中user为：User&#123;username=<span class="string">'大壮'</span>, age=9&#125;</span><br><span class="line">------------------------------------------</span><br><span class="line">调用方法后a为：1</span><br><span class="line">调用方法后str为：1</span><br><span class="line">调用方法后user为：User&#123;username=<span class="string">'大壮'</span>, age=9&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>我们可以看到，身为基本类型的int和被final修饰的String并没有改变，但是引用类型User改变了，所以，网上就有人得出了结论：<code>java针对基本类型是值传递，对于引用类型是引用传递</code>。<strong>但是！！！！这是错误的结论</strong>，不相信的话，我在上面的代码中<strong>加一行代码</strong>，就知道为什么这个是错的结论了</p>
-<h4 id="在convert-方法中str-quot-2-quot-下面增加一行user-new-User-quot-小美-quot-18-，让我们看看这样的结果是什么？"><a href="#在convert-方法中str-quot-2-quot-下面增加一行user-new-User-quot-小美-quot-18-，让我们看看这样的结果是什么？" class="headerlink" title="在convert()方法中str = &quot;2&quot;;下面增加一行user = new User(&quot;小美&quot;, 18)，让我们看看这样的结果是什么？"></a>在convert()方法中<code>str = &quot;2&quot;;</code>下面增加一行<code>user = new User(&quot;小美&quot;, 18)</code>，让我们看看这样的结果是什么？</h4><p><img src="C:%5CUsers%5C15888%5CPictures%5CTypora%E5%9B%BE%E7%89%87%5Cimage-20200915135154995.png" alt="image-20200915135154995"></p>
-<h4 id="程序的执行结果：-1"><a href="#程序的执行结果：-1" class="headerlink" title="程序的执行结果："></a>程序的执行结果：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">调用方法前a为：1</span><br><span class="line">调用方法前str为：1</span><br><span class="line">调用方法前user为：User&#123;username=<span class="string">'阿花'</span>, age=6&#125;</span><br><span class="line">------------------------------------------</span><br><span class="line">调用方法中a为：2</span><br><span class="line">调用方法中str为：2</span><br><span class="line">调用方法中user为：User&#123;username=<span class="string">'大壮'</span>, age=9&#125;</span><br><span class="line">------------------------------------------</span><br><span class="line">调用方法后a为：1</span><br><span class="line">调用方法后str为：1</span><br><span class="line">调用方法后user为：User&#123;username=<span class="string">'阿花'</span>, age=6&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="从上述结果可以看出，当我们在-convert-方法中添加-user-new-User-quot-小美-quot-18-之后，“引用传递”就突然变值传递了？为什么？"><a href="#从上述结果可以看出，当我们在-convert-方法中添加-user-new-User-quot-小美-quot-18-之后，“引用传递”就突然变值传递了？为什么？" class="headerlink" title="从上述结果可以看出，当我们在 convert 方法中添加 user = new User(&quot;小美&quot;, 18)之后，“引用传递”就突然变值传递了？为什么？"></a>从上述结果可以看出，当我们在 <code>convert</code> 方法中添加 <code>user = new User(&quot;小美&quot;, 18)</code>之后，“引用传递”就突然变值传递了？为什么？</h5><p>这是因为，<strong>在 Java 语言中本质上只有值传递，也就说 Java 的传参只会传递它的副本，并不会传递参数本身。</strong></p>
-<p>即传入convert()时的user为 <code>User user</code>的副本，指向同一个<code>new User(&quot;阿花&quot;, 6)</code>的堆地址，</p>
-<p>当执行<code>user = new User(&quot;小美&quot;, 18)</code>时，指向的堆内存改变了，所以再进行任何操作都跟之前的堆地址没关系了，即证实了，传递的是一个副本。</p>
-<h4 id="未执行user-new-User-quot-小美-quot-18-之前"><a href="#未执行user-new-User-quot-小美-quot-18-之前" class="headerlink" title="未执行user = new User(&quot;小美&quot;, 18)之前"></a>未执行<code>user = new User(&quot;小美&quot;, 18)</code>之前</h4><p><img src="C:%5CUsers%5C15888%5CPictures%5CTypora%E5%9B%BE%E7%89%87%5C%E6%8C%87%E5%90%91%E5%90%8C%E4%B8%80%E4%B8%AA%E5%9C%B0%E5%9D%80.png" alt="指向同一个地址"></p>
-<h4 id="执行user-new-User-quot-小美-quot-18-之后"><a href="#执行user-new-User-quot-小美-quot-18-之后" class="headerlink" title="执行user = new User(&quot;小美&quot;, 18)之后"></a>执行<code>user = new User(&quot;小美&quot;, 18)</code>之后</h4><p><img src="C:%5CUsers%5C15888%5CPictures%5CTypora%E5%9B%BE%E7%89%87%5C%E6%8C%87%E5%90%91%E4%B8%8D%E5%90%8C%E5%9C%B0%E5%9D%80.png" alt="指向不同地址"></p>
-<h4 id="总结：通过本文的内容，我们可以得出：在-Java-语言中只有值传递，方法传参时只会传递副本信息而非原内容。我们还知道了基础数据类型会直接生成到栈上，而对象或数组则会在栈和堆上都生成信息，并将栈上生成的引用，直接指向堆中生成的数据"><a href="#总结：通过本文的内容，我们可以得出：在-Java-语言中只有值传递，方法传参时只会传递副本信息而非原内容。我们还知道了基础数据类型会直接生成到栈上，而对象或数组则会在栈和堆上都生成信息，并将栈上生成的引用，直接指向堆中生成的数据" class="headerlink" title="总结：通过本文的内容，我们可以得出：在 Java 语言中只有值传递，方法传参时只会传递副本信息而非原内容。我们还知道了基础数据类型会直接生成到栈上，而对象或数组则会在栈和堆上都生成信息，并将栈上生成的引用，直接指向堆中生成的数据"></a>总结：通过本文的内容，我们可以得出：<strong>在 Java 语言中只有值传递，方法传参时只会传递副本信息而非原内容</strong>。我们还知道了基础数据类型会直接生成到栈上，而对象或数组则会在栈和堆上都生成信息，并将栈上生成的引用，直接指向堆中生成的数据</h4>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/19/Java%E5%80%BC%E4%BC%A0%E9%80%92%E8%AF%81%E6%98%8E/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-gt,gte,lt,lte缩写" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1430,6 +1307,121 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/05/28/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8redis%E8%BF%87%E6%9C%9F%E5%9B%9E%E8%B0%83%E8%A7%A3%E5%86%B3%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-记录使用rabbit  mq处理订单超时业务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/25/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8rabbit%20%20mq%E5%A4%84%E7%90%86%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E4%B8%9A%E5%8A%A1/">记录使用rabbit  mq处理订单超时业务</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/25/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8rabbit%20%20mq%E5%A4%84%E7%90%86%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E4%B8%9A%E5%8A%A1/" class="archive-article-date">
+  	<time datetime="2020-05-25T09:14:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
+</a>
+
+          <!-- 需要添加的位置 -->
+          <!-- 开始添加字数统计-->
+          
+            <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">1.6k字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">7分</span>
+      </span>
+    </span>
+</div>
+          
+          <!-- 添加完成 -->
+
+        
+
+        <!-- 添加代码 -->
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id=""><a href="#" class="headerlink" title=""></a></h4><blockquote>
+<p>前言：这几天在收尾项目，发现对订单超时的业务做的不够细致(下单15分钟后未付款则订单失效)，我们选择的是最为简单的定时任务来跑缓存中的订单，并筛选出超时的订单进行数据库更新操作，但是这样太消耗服务器的性能了，所以思考是否有别的解决方案</p>
+</blockquote>
+<p>方案当然是有的，就我个人而言，就知道三种方案</p>
+<ol>
+<li>就是我们现在所使用的方法，将订单存在redis缓存中，再模糊查询出来未付款的订单id列表，将id列表进行筛选，将筛选好的id列表进行数据库批量更新，</li>
+<li>也是将订单id存在redis缓存中，不同的是，存入redis的同时设置过期时间，再开启redis过期回调功能，参考链接：<a href="https://www.cnblogs.com/NJM-F/p/10442198.html" target="_blank" rel="noopener">https://www.cnblogs.com/NJM-F/p/10442198.html</a>，实际操作文章：<a href="https://blog.csdn.net/weixin_43864927/article/details/105261967" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43864927/article/details/105261967*</a> <strong>但是问题是：</strong><img src="https://img-blog.csdnimg.cn/20200401163357239.png" alt="在这里插入图片描述"><ol start="3">
+<li>使用mq来消费，mq设置消息过期时间，消息过期后，将订单消息发送到队列中，程序监听该队列，进行数据库操作</li>
+</ol>
+<ul>
+<li>综上所述，第三种应该是最适合我们的方法了，接下来就是具体操作了</li>
+</ul>
+</li>
+</ol>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Practical-issue//" class="article-tag-list-link color1">Practical-issue</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/25/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8rabbit%20%20mq%E5%A4%84%E7%90%86%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E4%B8%9A%E5%8A%A1/">展开全文 >></a>
         </p>
       
 

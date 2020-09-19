@@ -156,20 +156,20 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-记录使用rabbit  mq处理订单超时业务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-MybatisPlus批量更新异常" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/25/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8rabbit%20%20mq%E5%A4%84%E7%90%86%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E4%B8%9A%E5%8A%A1/">记录使用rabbit  mq处理订单超时业务</a>
+      <a class="article-title" href="/2020/05/05/MybatisPlus%E6%89%B9%E9%87%8F%E6%9B%B4%E6%96%B0%E5%BC%82%E5%B8%B8/">MybatisPlus批量更新异常</a>
     </h1>
   
 
         
-        <a href="/2020/05/25/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8rabbit%20%20mq%E5%A4%84%E7%90%86%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E4%B8%9A%E5%8A%A1/" class="archive-article-date">
-  	<time datetime="2020-05-25T09:14:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
+        <a href="/2020/05/05/MybatisPlus%E6%89%B9%E9%87%8F%E6%9B%B4%E6%96%B0%E5%BC%82%E5%B8%B8/" class="archive-article-date">
+  	<time datetime="2020-05-04T23:20:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-05</time>
 </a>
 
           <!-- 需要添加的位置 -->
@@ -180,7 +180,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">1.6k字</span>
+        <span class="post-count">288字</span>
       </span>
     </span>
 
@@ -189,7 +189,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">7分</span>
+        <span class="post-count">1分</span>
       </span>
     </span>
 </div>
@@ -204,20 +204,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id=""><a href="#" class="headerlink" title=""></a></h4><blockquote>
-<p>前言：这几天在收尾项目，发现对订单超时的业务做的不够细致(下单15分钟后未付款则订单失效)，我们选择的是最为简单的定时任务来跑缓存中的订单，并筛选出超时的订单进行数据库更新操作，但是这样太消耗服务器的性能了，所以思考是否有别的解决方案</p>
+        <blockquote>
+<p>使用MybatisPlus批量更新数据库时抛异常：java.sql.SQLException: sql injection violation, multi-statement</p>
 </blockquote>
-<p>方案当然是有的，就我个人而言，就知道三种方案</p>
-<ol>
-<li>就是我们现在所使用的方法，将订单存在redis缓存中，再模糊查询出来未付款的订单id列表，将id列表进行筛选，将筛选好的id列表进行数据库批量更新，</li>
-<li>也是将订单id存在redis缓存中，不同的是，存入redis的同时设置过期时间，再开启redis过期回调功能，参考链接：<a href="https://www.cnblogs.com/NJM-F/p/10442198.html" target="_blank" rel="noopener">https://www.cnblogs.com/NJM-F/p/10442198.html</a>，实际操作文章：<a href="https://blog.csdn.net/weixin_43864927/article/details/105261967" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43864927/article/details/105261967*</a> <strong>但是问题是：</strong><img src="https://img-blog.csdnimg.cn/20200401163357239.png" alt="在这里插入图片描述"><ol start="3">
-<li>使用mq来消费，mq设置消息过期时间，消息过期后，将订单消息发送到队列中，程序监听该队列，进行数据库操作</li>
-</ol>
-<ul>
-<li>综上所述，第三种应该是最适合我们的方法了，接下来就是具体操作了</li>
-</ul>
-</li>
-</ol>
+<h4 id="找到报错的sql："><a href="#找到报错的sql：" class="headerlink" title="找到报错的sql："></a>找到报错的sql：</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=<span class="string">"batchUpdateCategory"</span>&gt;</span><br><span class="line">    &lt;foreach collection=<span class="string">"list"</span> item=<span class="string">"bean"</span> index=<span class="string">"index"</span> open=<span class="string">""</span> close=<span class="string">""</span> separator=<span class="string">";"</span>&gt;</span><br><span class="line">        update cms_topic</span><br><span class="line">        set category_id = #&#123;bean.categoryId&#125;</span><br><span class="line">        where id = #&#123;bean.id&#125;</span><br><span class="line">    &lt;/foreach&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="原因：多条语句执行被druid拦截了"><a href="#原因：多条语句执行被druid拦截了" class="headerlink" title="原因：多条语句执行被druid拦截了"></a>原因：多条语句执行被druid拦截了</h3><p><img src="https://img-blog.csdnimg.cn/20200515135106899.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzg2NDkyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
         
       
 
@@ -241,7 +233,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/25/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8rabbit%20%20mq%E5%A4%84%E7%90%86%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E4%B8%9A%E5%8A%A1/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/05/05/MybatisPlus%E6%89%B9%E9%87%8F%E6%9B%B4%E6%96%B0%E5%BC%82%E5%B8%B8/">展开全文 >></a>
         </p>
       
 
@@ -350,113 +342,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/05/05/SpringBoot%E6%95%B4%E5%90%88SpringEmail%20%E6%89%B9%E9%87%8F%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MybatisPlus批量更新异常" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/05/MybatisPlus%E6%89%B9%E9%87%8F%E6%9B%B4%E6%96%B0%E5%BC%82%E5%B8%B8/">MybatisPlus批量更新异常</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/05/MybatisPlus%E6%89%B9%E9%87%8F%E6%9B%B4%E6%96%B0%E5%BC%82%E5%B8%B8/" class="archive-article-date">
-  	<time datetime="2020-05-04T23:20:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-05</time>
-</a>
-
-          <!-- 需要添加的位置 -->
-          <!-- 开始添加字数统计-->
-          
-            <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">288字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-          
-          <!-- 添加完成 -->
-
-        
-
-        <!-- 添加代码 -->
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>使用MybatisPlus批量更新数据库时抛异常：java.sql.SQLException: sql injection violation, multi-statement</p>
-</blockquote>
-<h4 id="找到报错的sql："><a href="#找到报错的sql：" class="headerlink" title="找到报错的sql："></a>找到报错的sql：</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=<span class="string">"batchUpdateCategory"</span>&gt;</span><br><span class="line">    &lt;foreach collection=<span class="string">"list"</span> item=<span class="string">"bean"</span> index=<span class="string">"index"</span> open=<span class="string">""</span> close=<span class="string">""</span> separator=<span class="string">";"</span>&gt;</span><br><span class="line">        update cms_topic</span><br><span class="line">        set category_id = #&#123;bean.categoryId&#125;</span><br><span class="line">        where id = #&#123;bean.id&#125;</span><br><span class="line">    &lt;/foreach&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="原因：多条语句执行被druid拦截了"><a href="#原因：多条语句执行被druid拦截了" class="headerlink" title="原因：多条语句执行被druid拦截了"></a>原因：多条语句执行被druid拦截了</h3><p><img src="https://img-blog.csdnimg.cn/20200515135106899.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzg2NDkyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Practical-issue//" class="article-tag-list-link color1">Practical-issue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/05/MybatisPlus%E6%89%B9%E9%87%8F%E6%9B%B4%E6%96%B0%E5%BC%82%E5%B8%B8/">展开全文 >></a>
         </p>
       
 
