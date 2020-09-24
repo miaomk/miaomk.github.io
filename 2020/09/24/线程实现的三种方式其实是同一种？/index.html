@@ -6,17 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020/5 | miaomk的个人博客网站</title>
+  <title>线程实现的三种方式其实是同一种？ | miaomk的个人博客网站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="miaomk的个人博客网站">
-<meta property="og:type" content="website">
-<meta property="og:title" content="miaomk的个人博客网站">
-<meta property="og:url" content="http://yoursite.com/archives/2020/05/index.html">
+  <meta name="description" content="从我实习面试开始就有在面试中遇到过这个问题：创建线程有几种方法 记得当时的回答是：在jdk1.5之后有三种创建方式 1.继承Thread类 2.实现Runnable接口 3.实现Callable接口 工作之后回顾这个问题就会想到，这三种方式的不同点在哪呢？所有有了探究的这篇文章 虽然网上已经有很多文章珠玉在前，但是我还是想写一篇我自己的文章，如果写的不好，请见谅  先来实现最基本的创建线程的三种">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线程实现的三种方式其实是同一种？">
+<meta property="og:url" content="http://yoursite.com/2020/09/24/%E7%BA%BF%E7%A8%8B%E5%AE%9E%E7%8E%B0%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%85%B6%E5%AE%9E%E6%98%AF%E5%90%8C%E4%B8%80%E7%A7%8D%EF%BC%9F/index.html">
 <meta property="og:site_name" content="miaomk的个人博客网站">
-<meta property="og:description" content="miaomk的个人博客网站">
+<meta property="og:description" content="从我实习面试开始就有在面试中遇到过这个问题：创建线程有几种方法 记得当时的回答是：在jdk1.5之后有三种创建方式 1.继承Thread类 2.实现Runnable接口 3.实现Callable接口 工作之后回顾这个问题就会想到，这三种方式的不同点在哪呢？所有有了探究的这篇文章 虽然网上已经有很多文章珠玉在前，但是我还是想写一篇我自己的文章，如果写的不好，请见谅  先来实现最基本的创建线程的三种">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imgkr2.cn-bj.ufileos.com/8071d751-b381-4f2d-9e64-7d8206dca574.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=9lPDb2Dq9Ws5QtdoifUOBZ5tAFk%253D&Expires=1601033460">
+<meta property="og:image" content="https://imgkr2.cn-bj.ufileos.com/ff1d4615-5c9c-438b-8278-cad4b273f6f1.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=MkOLexTGAOjIueeKi%252FsqQSlXYbE%253D&Expires=1601033475">
+<meta property="og:image" content="https://imgkr2.cn-bj.ufileos.com/044b3f3d-7d4e-4b22-9192-874b0edb692b.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=xAIrdfa2hjwQol9SlnZBsS0gaCk%253D&Expires=1601033558">
+<meta property="og:image" content="https://imgkr2.cn-bj.ufileos.com/d310ce49-2a47-4ded-92f5-5fe2903ab1f2.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=PQoNkB1syy8E9oo4fK9XmEETmbY%253D&Expires=1601033528">
+<meta property="og:image" content="https://imgkr2.cn-bj.ufileos.com/1b17c9a2-cc07-4279-8a2d-e33884198719.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=2xFjAoi%252FrTCkZ6nzAXeBUF9yFCI%253D&Expires=1601033578">
+<meta property="article:published_time" content="2020-09-24T11:42:28.567Z">
+<meta property="article:modified_time" content="2020-09-24T11:41:27.942Z">
 <meta property="article:author" content="你不知道我名字">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgkr2.cn-bj.ufileos.com/8071d751-b381-4f2d-9e64-7d8206dca574.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=9lPDb2Dq9Ws5QtdoifUOBZ5tAFk%253D&Expires=1601033460">
   
     <link rel="alternative" href="/atom.xml" title="miaomk的个人博客网站" type="application/atom+xml">
   
@@ -154,174 +162,261 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-线程实现的三种方式其实是同一种？" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      线程实现的三种方式其实是同一种？
+    </h1>
+  
+
+        
+        <a href="/2020/09/24/%E7%BA%BF%E7%A8%8B%E5%AE%9E%E7%8E%B0%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%85%B6%E5%AE%9E%E6%98%AF%E5%90%8C%E4%B8%80%E7%A7%8D%EF%BC%9F/" class="archive-article-date">
+  	<time datetime="2020-09-24T11:42:28.567Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-24</time>
+</a>
+
+          <!-- 需要添加的位置 -->
+          <!-- 开始添加字数统计-->
+          
+            <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">730字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">3分</span>
+      </span>
+    </span>
+</div>
+          
+          <!-- 添加完成 -->
+
+        
+
+        <!-- 添加代码 -->
+        
+          <span class="archive-article-date">
+              阅读量 <span id="busuanzi_value_page_pv"></span>
+          </span>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>从我实习面试开始就有在面试中遇到过这个问题：创建线程有几种方法</p>
+<p>记得当时的回答是：在jdk1.5之后有三种创建方式</p>
+<p>1.继承Thread类</p>
+<p>2.实现Runnable接口</p>
+<p>3.实现Callable接口</p>
+<p>工作之后回顾这个问题就会想到，这三种方式的不同点在哪呢？所有有了探究的这篇文章</p>
+<p>虽然网上已经有很多文章珠玉在前，但是我还是想写一篇我自己的文章，如果写的不好，请见谅</p>
+</blockquote>
+<h4 id="先来实现最基本的创建线程的三种方式吧"><a href="#先来实现最基本的创建线程的三种方式吧" class="headerlink" title="先来实现最基本的创建线程的三种方式吧"></a>先来实现最基本的创建线程的三种方式吧</h4><h4 id="1-继承Thread类"><a href="#1-继承Thread类" class="headerlink" title="1.继承Thread类"></a>1.继承Thread类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> miao</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadDemo</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String threadName;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ThreadDemo</span><span class="params">(String threadName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.threadName = threadName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        System.out.println(threadName + Thread.currentThread().getName());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 多线程级别调用</span></span><br><span class="line">        <span class="keyword">new</span> ThreadDemo(<span class="string">"test thread demo:"</span>).start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 方法级别的调用</span></span><br><span class="line">         <span class="keyword">new</span> ThreadDemo(<span class="string">"test thread demo:"</span>).run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-实现Runnable接口"><a href="#2-实现Runnable接口" class="headerlink" title="2.实现Runnable接口"></a>2.实现Runnable接口</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> miao</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RunnableDemo</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"RunnableDemo："</span> + Thread.currentThread().getName());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> RunnableDemo());</span><br><span class="line"></span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-实现Callable接口"><a href="#3-实现Callable接口" class="headerlink" title="3.实现Callable接口"></a>3.实现Callable接口</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.Callable;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.FutureTask;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> miao</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FutureTaskDemo</span> <span class="keyword">implements</span> <span class="title">Callable</span>&lt;<span class="title">String</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"return callable demo"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        </span><br><span class="line">        FutureTask task = <span class="keyword">new</span> FutureTask(<span class="keyword">new</span> FutureTaskDemo());</span><br><span class="line">        <span class="keyword">new</span> Thread(task).start();</span><br><span class="line">        System.out.println(task.get());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="已经完成了三种创建线程的方式了，那么我们就来思考一下这三种方式的相同点和不同点吧"><a href="#已经完成了三种创建线程的方式了，那么我们就来思考一下这三种方式的相同点和不同点吧" class="headerlink" title="已经完成了三种创建线程的方式了，那么我们就来思考一下这三种方式的相同点和不同点吧"></a>已经完成了三种创建线程的方式了，那么我们就来思考一下这三种方式的相同点和不同点吧</h3><blockquote>
+<p>其实关于最常见面试题的就是：Runnable与Callable的不同点是什么？</p>
+<p>一般同学会回答：Runnable无返回值，而Callable有返回值能抛异常</p>
+</blockquote>
+<h3 id="其实，这三种创建线程的方式本质上是一样的！！！！不信的话看我证明吧"><a href="#其实，这三种创建线程的方式本质上是一样的！！！！不信的话看我证明吧" class="headerlink" title="其实，这三种创建线程的方式本质上是一样的！！！！不信的话看我证明吧"></a>其实，这三种创建线程的方式本质上是一样的！！！！不信的话看我证明吧</h3><h4 id="首先是第一种方式，继承Thread类，点开这个类我们可以看到，其实Thread实现了Runnable接口，重写了run-方法"><a href="#首先是第一种方式，继承Thread类，点开这个类我们可以看到，其实Thread实现了Runnable接口，重写了run-方法" class="headerlink" title="首先是第一种方式，继承Thread类，点开这个类我们可以看到，其实Thread实现了Runnable接口，重写了run()方法"></a>首先是第一种方式，继承<code>Thread</code>类，点开这个类我们可以看到，其实<code>Thread</code>实现了<code>Runnable</code>接口，重写了<code>run()</code>方法</h4><p><img src="https://imgkr2.cn-bj.ufileos.com/8071d751-b381-4f2d-9e64-7d8206dca574.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=9lPDb2Dq9Ws5QtdoifUOBZ5tAFk%253D&Expires=1601033460" alt=""></p>
+<p><img src="https://imgkr2.cn-bj.ufileos.com/ff1d4615-5c9c-438b-8278-cad4b273f6f1.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=MkOLexTGAOjIueeKi%252FsqQSlXYbE%253D&Expires=1601033475" alt=""></p>
+<h4 id="第二种方法我们就不说了，因为他本身就是实现的Runnable接口，我们继续来看第三种实现Callable的接口。"><a href="#第二种方法我们就不说了，因为他本身就是实现的Runnable接口，我们继续来看第三种实现Callable的接口。" class="headerlink" title="第二种方法我们就不说了，因为他本身就是实现的Runnable接口，我们继续来看第三种实现Callable的接口。"></a>第二种方法我们就不说了，因为他本身就是实现的<code>Runnable</code>接口，我们继续来看第三种实现Callable的接口。</h4><h4 id="首先我们要看的是FutureTask-lt-V-gt-，实现了RunnableFuture-lt-V-gt-接口，再点开RunnableFuture-lt-V-gt-接口看，继承了"><a href="#首先我们要看的是FutureTask-lt-V-gt-，实现了RunnableFuture-lt-V-gt-接口，再点开RunnableFuture-lt-V-gt-接口看，继承了" class="headerlink" title="首先我们要看的是FutureTask&lt;V&gt;，实现了RunnableFuture&lt;V&gt;接口，再点开RunnableFuture&lt;V&gt;接口看，继承了"></a>首先我们要看的是<code>FutureTask&lt;V&gt;</code>，实现了<code>RunnableFuture&lt;V&gt;</code>接口，再点开<code>RunnableFuture&lt;V&gt;</code>接口看，继承了</h4><h4 id="Runnable-Future-lt-V-gt-接口，所以说到底还是与Runnable接口有关"><a href="#Runnable-Future-lt-V-gt-接口，所以说到底还是与Runnable接口有关" class="headerlink" title="Runnable,Future&lt;V&gt;接口，所以说到底还是与Runnable接口有关"></a><code>Runnable</code>,<code>Future&lt;V&gt;</code>接口，所以说到底还是与<code>Runnable</code>接口有关</h4><p><img src="https://imgkr2.cn-bj.ufileos.com/044b3f3d-7d4e-4b22-9192-874b0edb692b.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=xAIrdfa2hjwQol9SlnZBsS0gaCk%253D&Expires=1601033558" alt=""></p>
+<p><img src="https://imgkr2.cn-bj.ufileos.com/d310ce49-2a47-4ded-92f5-5fe2903ab1f2.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=PQoNkB1syy8E9oo4fK9XmEETmbY%253D&Expires=1601033528" alt=""></p>
+<h3 id="其实文章到这里就可以结束了，但是我看到第三种Callable方法中能通过get-获取到返回值，那又是在什么时候set进去的呢？"><a href="#其实文章到这里就可以结束了，但是我看到第三种Callable方法中能通过get-获取到返回值，那又是在什么时候set进去的呢？" class="headerlink" title="其实文章到这里就可以结束了，但是我看到第三种Callable方法中能通过get()获取到返回值，那又是在什么时候set进去的呢？"></a>其实文章到这里就可以结束了，但是我看到第三种<code>Callable</code>方法中能通过<code>get()</code>获取到返回值，那又是在什么时候<code>set</code>进去的呢？</h3><h3 id="为此我点开了FutureTask的run-方法查找结果，答案如下，在调用完call-方法后，执行set-result-进去，所以我们后面能通过get-方法获取到result"><a href="#为此我点开了FutureTask的run-方法查找结果，答案如下，在调用完call-方法后，执行set-result-进去，所以我们后面能通过get-方法获取到result" class="headerlink" title="为此我点开了FutureTask的run()方法查找结果，答案如下，在调用完call()方法后，执行set(result)进去，所以我们后面能通过get()方法获取到result"></a>为此我点开了<code>FutureTask</code>的<code>run()</code>方法查找结果，答案如下，在调用完<code>call()</code>方法后，执行<code>set(result)</code>进去，所以我们后面能通过<code>get()</code>方法获取到result</h3><p><img src="https://imgkr2.cn-bj.ufileos.com/1b17c9a2-cc07-4279-8a2d-e33884198719.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=2xFjAoi%252FrTCkZ6nzAXeBUF9yFCI%253D&Expires=1601033578" alt=""></p>
+<h3 id="结论：线程有三种创建方式，但本质上都是通过实现Runnable接口重写run-方法来的，而Callable的返回值是在成功调用了call-方法后set-result-进去的"><a href="#结论：线程有三种创建方式，但本质上都是通过实现Runnable接口重写run-方法来的，而Callable的返回值是在成功调用了call-方法后set-result-进去的" class="headerlink" title="结论：线程有三种创建方式，但本质上都是通过实现Runnable接口重写run()方法来的，而Callable的返回值是在成功调用了call()方法后set(result)进去的"></a>结论：线程有三种创建方式，但本质上都是通过实现<code>Runnable</code>接口重写<code>run()</code>方法来的，而<code>Callable</code>的返回值是在成功调用了<code>call()</code>方法后<code>set(result)</code>进去的</h3>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assert/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assert/wechat.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/28/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8redis%E8%BF%87%E6%9C%9F%E5%9B%9E%E8%B0%83%E8%A7%A3%E5%86%B3%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2020-05-28T14:14:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/28/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8redis%E8%BF%87%E6%9C%9F%E5%9B%9E%E8%B0%83%E8%A7%A3%E5%86%B3%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98/">记录使用redis过期回调解决订单超时问题</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Practical-issue//" class="article-tag-list-link color1">Practical-issue</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
-
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/09/24/%E7%BA%BF%E7%A8%8B%E5%AE%9E%E7%8E%B0%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%85%B6%E5%AE%9E%E6%98%AF%E5%90%8C%E4%B8%80%E7%A7%8D%EF%BC%9F/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/25/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8rabbit%20%20mq%E5%A4%84%E7%90%86%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E4%B8%9A%E5%8A%A1/" class="archive-article-date">
-  	<time datetime="2020-05-25T09:14:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/09/12/gt,gte,lt,lte%E7%BC%A9%E5%86%99/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">gt,gte,lt,lte缩写</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/25/%E8%AE%B0%E5%BD%95%E4%BD%BF%E7%94%A8rabbit%20%20mq%E5%A4%84%E7%90%86%E8%AE%A2%E5%8D%95%E8%B6%85%E6%97%B6%E4%B8%9A%E5%8A%A1/">记录使用rabbit  mq处理订单超时业务</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Practical-issue//" class="article-tag-list-link color1">Practical-issue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#先来实现最基本的创建线程的三种方式吧"><span class="toc-number">1.</span> <span class="toc-text">先来实现最基本的创建线程的三种方式吧</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-继承Thread类"><span class="toc-number">2.</span> <span class="toc-text">1.继承Thread类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-实现Runnable接口"><span class="toc-number">3.</span> <span class="toc-text">2.实现Runnable接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-实现Callable接口"><span class="toc-number">4.</span> <span class="toc-text">3.实现Callable接口</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#已经完成了三种创建线程的方式了，那么我们就来思考一下这三种方式的相同点和不同点吧"><span class="toc-number"></span> <span class="toc-text">已经完成了三种创建线程的方式了，那么我们就来思考一下这三种方式的相同点和不同点吧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其实，这三种创建线程的方式本质上是一样的！！！！不信的话看我证明吧"><span class="toc-number"></span> <span class="toc-text">其实，这三种创建线程的方式本质上是一样的！！！！不信的话看我证明吧</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#首先是第一种方式，继承Thread类，点开这个类我们可以看到，其实Thread实现了Runnable接口，重写了run-方法"><span class="toc-number">1.</span> <span class="toc-text">首先是第一种方式，继承Thread类，点开这个类我们可以看到，其实Thread实现了Runnable接口，重写了run()方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第二种方法我们就不说了，因为他本身就是实现的Runnable接口，我们继续来看第三种实现Callable的接口。"><span class="toc-number">2.</span> <span class="toc-text">第二种方法我们就不说了，因为他本身就是实现的Runnable接口，我们继续来看第三种实现Callable的接口。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#首先我们要看的是FutureTask-lt-V-gt-，实现了RunnableFuture-lt-V-gt-接口，再点开RunnableFuture-lt-V-gt-接口看，继承了"><span class="toc-number">3.</span> <span class="toc-text">首先我们要看的是FutureTask&lt;V&gt;，实现了RunnableFuture&lt;V&gt;接口，再点开RunnableFuture&lt;V&gt;接口看，继承了</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Runnable-Future-lt-V-gt-接口，所以说到底还是与Runnable接口有关"><span class="toc-number">4.</span> <span class="toc-text">Runnable,Future&lt;V&gt;接口，所以说到底还是与Runnable接口有关</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其实文章到这里就可以结束了，但是我看到第三种Callable方法中能通过get-获取到返回值，那又是在什么时候set进去的呢？"><span class="toc-number"></span> <span class="toc-text">其实文章到这里就可以结束了，但是我看到第三种Callable方法中能通过get()获取到返回值，那又是在什么时候set进去的呢？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为此我点开了FutureTask的run-方法查找结果，答案如下，在调用完call-方法后，执行set-result-进去，所以我们后面能通过get-方法获取到result"><span class="toc-number"></span> <span class="toc-text">为此我点开了FutureTask的run()方法查找结果，答案如下，在调用完call()方法后，执行set(result)进去，所以我们后面能通过get()方法获取到result</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结论：线程有三种创建方式，但本质上都是通过实现Runnable接口重写run-方法来的，而Callable的返回值是在成功调用了call-方法后set-result-进去的"><span class="toc-number"></span> <span class="toc-text">结论：线程有三种创建方式，但本质上都是通过实现Runnable接口重写run()方法来的，而Callable的返回值是在成功调用了call()方法后set(result)进去的</span></a>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/05/SpringBoot%E6%95%B4%E5%90%88SpringEmail%20%E6%89%B9%E9%87%8F%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2020-05-04T23:20:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/05/SpringBoot%E6%95%B4%E5%90%88SpringEmail%20%E6%89%B9%E9%87%8F%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/">SpringBoot整合SpringEmail 批量发送邮件</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Practical-issue//" class="article-tag-list-link color1">Practical-issue</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/05/MybatisPlus%E6%89%B9%E9%87%8F%E6%9B%B4%E6%96%B0%E5%BC%82%E5%B8%B8/" class="archive-article-date">
-  	<time datetime="2020-05-04T23:20:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/05/MybatisPlus%E6%89%B9%E9%87%8F%E6%9B%B4%E6%96%B0%E5%BC%82%E5%B8%B8/">MybatisPlus批量更新异常</a>
-    </h1>
+
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Practical-issue//" class="article-tag-list-link color1">Practical-issue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
+
+  
+  
+    <div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+var gitalk = new Gitalk({
+  clientID: '4a23124d2e529d373f42',
+  clientSecret: '8aea68dd234bbc6cec94312ff0a082169e969bb8',
+  repo: 'miaomk.github.io',
+  owner: 'miaomk',
+  admin: ['miaomk'],
+  id: md5(window.location.pathname),
+  distractionFreeMode: true
+})
+
+gitalk.render('gitalk-container')
+</script>
+  
+
 
 
           </div>
@@ -356,8 +451,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
